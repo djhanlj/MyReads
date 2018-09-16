@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import './App.css'
 
 class BooksList extends Component {
 
@@ -7,7 +6,12 @@ class BooksList extends Component {
          this.props.onUpdate(book, event.target.value)
      };
 
-    selectedShelf = (book) => {
+    
+    /**
+     * Método criado para listar os livros da pesquisa com a estante definida,
+     * Isso é necessário porque na pesquisa não é retornado a estante que o livro está
+     */
+     selectedShelf = (book) => {
         let newBook = ''
         if (this.props.booksPage){
             newBook = this.props.booksPage.find( (b) => {
