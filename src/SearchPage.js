@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
-import Book from './Books'
+import BooksList from './BooksList'
+import { Link } from 'react-router-dom'
 
 class SearchBook extends Component{
 
@@ -11,7 +12,8 @@ class SearchBook extends Component{
 
     updateQuery = (queryChange) => {
         this.setState({ query: queryChange }, () => {
-            if (queryChange.length < 2 || queryChange.endsWith(' ')) {
+            if (queryChange.length < 3 || queryChange.endsWith(' ')) {
+                console.log('valores menores: ' + this.state.query )
                 this.setState({ booksQuery: [] })
             }else{
                 this.searchQuery(queryChange)
@@ -21,7 +23,9 @@ class SearchBook extends Component{
     
     searchQuery = (queryChange) => {
         BooksAPI.search(queryChange).then((books) => {
-            this.setState({ booksQuery: (typeof(books) !== 'undefined') ? books : [] })
+            console.log("livros da consulta: " + books[0])
+            this.setState({ booksQuery: (typeof (books[0]) !== 'undefined') ? books : [] })
+            console.log(this.state.booksQuery)
             
         })
     }
@@ -29,11 +33,12 @@ class SearchBook extends Component{
     render(){
 
         const { query, booksQuery } = this.state
+        const { onUpdate } = this.props
 
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+                    <Link className="close-search" to="/" >Close</Link>
                     <div className="search-books-input-wrapper">
                         <input type="text" 
                             value={query} 
@@ -43,8 +48,8 @@ class SearchBook extends Component{
                     </div>
                 </div>
                 <div className="search-books-results">
-                    {typeof(booksQuery) !== 'undefined' && (
-                        <Book books={booksQuery}  />
+                    {typeof(booksQuery[0]) !== 'undefined' && (
+                        <BooksList books={booksQuery} onUpdate={onUpdate} />
                     )}
                 </div>
             </div>

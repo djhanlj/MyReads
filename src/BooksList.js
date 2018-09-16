@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 
-class Books extends Component {
+class BooksList extends Component {
 
     handleChange = (book, event) => {
 
@@ -48,4 +48,4 @@ class Books extends Component {
     }
 }
 
-export default Books
+export default BooksList

@@ -1,6 +1,8 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
-import CategoryBooks from './CategoryBooks'
+import HomePage from './HomePage'
+import SearchPage from './SearchPage'
+import { Route } from 'react-router-dom'
 
 import './App.css'
 
@@ -17,7 +19,6 @@ class BooksApp extends React.Component {
     })
   }
 
-
   updateBook = (book, shelf) => {
     BooksAPI.update(book, shelf).then((bookNew) => {
       book.shelf = shelf
@@ -28,9 +29,6 @@ class BooksApp extends React.Component {
 
   }
 
-
-
-
   render() {
 
     const shelves = [
@@ -40,21 +38,15 @@ class BooksApp extends React.Component {
     ];
 
   return (
-    <div className="list-books">
-      <div className="list-books-title">
-        <h1>MyReads</h1>
+      <div>
+            <Route exact path="/" render={() => (
+              <HomePage onShelves={ shelves } books = { this.state.books } onUpdate = { this.updateBook }   />
+            )} />
+            
+            <Route path="/search" render={() => (
+              <SearchPage onUpdate={this.updateBook} />
+            )} />
       </div>
-      <div className="list-books-content">
-        <div>
-        { shelves.map( shelf => (
-          <CategoryBooks key = { shelf.value } category = { shelf.title } books = { this.state.books.filter((book) => book.shelf === shelf.value)} onUpdate = { this.updateBook }   />
-        )) }
-      </div>
-      </div>
-       <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-       </div>
-    </div>
 
   )}
 }
