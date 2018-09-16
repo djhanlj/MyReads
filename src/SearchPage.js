@@ -13,7 +13,6 @@ class SearchBook extends Component{
     updateQuery = (queryChange) => {
         this.setState({ query: queryChange }, () => {
             if (queryChange.length < 3 || queryChange.endsWith(' ')) {
-                console.log('valores menores: ' + this.state.query )
                 this.setState({ booksQuery: [] })
             }else{
                 this.searchQuery(queryChange)
@@ -23,17 +22,14 @@ class SearchBook extends Component{
     
     searchQuery = (queryChange) => {
         BooksAPI.search(queryChange).then((books) => {
-            console.log("livros da consulta: " + books[0])
             this.setState({ booksQuery: (typeof (books[0]) !== 'undefined') ? books : [] })
-            console.log(this.state.booksQuery)
-            
         })
     }
 
     render(){
 
         const { query, booksQuery } = this.state
-        const { onUpdate } = this.props
+        const { onUpdate, books } = this.props
 
         return (
             <div className="search-books">
@@ -49,7 +45,7 @@ class SearchBook extends Component{
                 </div>
                 <div className="search-books-results">
                     {typeof(booksQuery[0]) !== 'undefined' && (
-                        <BooksList books={booksQuery} onUpdate={onUpdate} />
+                        <BooksList booksPage={books} books={booksQuery} onUpdate={onUpdate} />
                     )}
                 </div>
             </div>

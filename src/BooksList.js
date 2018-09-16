@@ -4,12 +4,20 @@ import './App.css'
 class BooksList extends Component {
 
     handleChange = (book, event) => {
-
          this.props.onUpdate(book, event.target.value)
-        // console.log(JSON.stringify(book))
-        //console.log('oi' + event.target.value)
-
      };
+
+    selectedShelf = (book) => {
+        let newBook = ''
+        if (this.props.booksPage){
+            newBook = this.props.booksPage.find( (b) => {
+                return b.id === book.id
+            })
+            return (typeof newBook !== 'undefined') ? newBook.shelf : 'none'     
+        }else{
+          return book.shelf
+        }
+     }
 
 
     render() {
@@ -28,9 +36,9 @@ class BooksList extends Component {
                     <li key={book.id}>
                         <div key={book.id} className="book">
                             <div className="book-top">
-                                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: (typeof book.imageLinks !== 'undefined' ) ? `url(${book.imageLinks.thumbnail})` : '' }}></div>
                                 <div className="book-shelf-changer">
-                                    <select value={book.shelf} onChange={(e) => this.handleChange(book, e)}>
+                                    <select value={this.selectedShelf(book) } onChange={(e) => this.handleChange(book, e)}>
                                         {options.map(option => (
                                             <option object={book} key={option.value} value={option.value} >{option.label}</option>
                                         ))}
