@@ -8,7 +8,7 @@ class BooksList extends Component {
 
     
     /**
-     * Método criado para listar os livros da pesquisa com a estante definida,
+     * Método criado para listar os livros da pesquisa vinculados a estante,
      * Isso é necessário porque na pesquisa não é retornado a estante que o livro está
      */
      selectedShelf = (book) => {
