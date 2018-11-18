@@ -1,6 +1,6 @@
-# MyReads
+# Leitura
 
-Aplicação para gerenciar leitura de livros, podendo mover os livros de acordo com status atual da leitura ou pesquisar novos livros e adicionar na estante de leitura. 
+A aplicação Leitura é uma aplicação web de conteúdo e comentários. os usuários podem postar conteúdo em categorias pré-definidas, e fazer comentários em suas próprias postagens e nas de outros usuários e votem nas postagens e comentários. Os usuários poderão editar e excluir postagens.
 
 # Getting Started
 
